@@ -1,5 +1,6 @@
 ._*
 *.swp
+host_discovery_results.txt
 latest_tcp_results.txt
 latest_udp_results.txt
 *_tcp_report*

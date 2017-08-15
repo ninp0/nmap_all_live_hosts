@@ -23,14 +23,16 @@ nmap -sn $ip_range -oG host_discovery_results.txt
 cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip; do
   echo "Full TCP Scan: ${ip}"
   echo "Full TCP Scan: ${ip}" >> latest_tcp_results.txt
-  nmap --initial-rtt-timeout 39ms --max-rtt-timeout 100ms -n -Pn -sS -T5 -p 0-65535 -A -oA "${ip}_tcp_report" $ip
+  # More aggressive than T5
+  nmap --min-rtt-timeout 36ms --initial-rtt-timeout 63ms --max-rtt-timeout 99ms --max-retries 3 --host-timeout 3m -n -Pn -sS -p 0-65535 -A -oA "${ip}_tcp_report" $ip
   cat "${ip}_tcp_report.nmap" >> latest_tcp_results.txt
   echo -e "--------------------------------------------------------------------------------\n\n\n" >> latest_tcp_results.txt
   echo -e "--------------------------------------------------------------------------------\n\n\n"
 
   echo -e "Default UDP Scan: ${ip}"
   echo -e "Default UDP Scan: ${ip}" >> latest_udp_results.txt
-  nmap --initial-rtt-timeout 39ms --max-rtt-timeout 100ms -n -sU -T5 -A -oA "${ip}_udp_report" $ip
+  # More aggressive than T5
+  nmap --min-rtt-timeout 36ms --initial-rtt-timeout 63ms --max-rtt-timeout 99ms --max-retries 3 --host-timeout 3m -n -sU -A -oA "${ip}_udp_report" $ip
   cat "${ip}_udp_report.nmap" >> latest_udp_results.txt
   echo -e "--------------------------------------------------------------------------------\n\n\n" >> latest_udp_results.txt
   echo -e "--------------------------------------------------------------------------------\n\n\n"
