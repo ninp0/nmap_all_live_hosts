@@ -10,6 +10,7 @@ fi
 
 ip_range=$1
 
+echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Leveraging a Discovery Scan to Find IPs Prior to More Exhaustive Port Analysis..."
 if [[ -e targets.txt ]]; then
   > targets.txt
@@ -21,6 +22,7 @@ cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip
 done
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n"
 
+echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating TCP Scans..."
 nmap -iL targets.txt \
   --min-hostgroup 3 \
@@ -41,6 +43,7 @@ nmap -iL targets.txt \
 cat "latest_tcp_results.nmap" > latest_tcp_results.txt
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n"
 
+echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating UDP Scans..."
 nmap -iL targets.txt \
   --min-hostgroup 3 \
