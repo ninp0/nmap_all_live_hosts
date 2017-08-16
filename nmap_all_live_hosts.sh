@@ -32,7 +32,7 @@ cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip
   echo -e "Default UDP Scan: ${ip}"
   echo -e "Default UDP Scan: ${ip}" >> latest_udp_results.txt
   # More aggressive than T5
-  nmap --host-timeout 36m --min-rtt-timeout 36ms --initial-rtt-timeout 63ms --max-rtt-timeout 99ms --max-retries 3 --max-scan-delay 6ms -n -sU -A -oA "${ip}_udp_report" $ip
+  nmap --host-timeout 36m --min-rtt-timeout 36ms --initial-rtt-timeout 63ms --max-rtt-timeout 99ms --max-retries 3 --max-scan-delay 6ms -n -Pn -sU -A -oA "${ip}_udp_report" $ip
   cat "${ip}_udp_report.nmap" >> latest_udp_results.txt
   echo -e "--------------------------------------------------------------------------------\n\n\n" >> latest_udp_results.txt
   echo -e "--------------------------------------------------------------------------------\n\n\n"
