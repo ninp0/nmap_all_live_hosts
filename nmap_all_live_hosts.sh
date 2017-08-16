@@ -15,7 +15,7 @@ if [[ -e targets.txt ]]; then
   > targets.txt
 fi
 
-nmap -sn $ip_range -oG host_discovery_results.txt
+nmap -sn -PR -PS -PA -PU -PY -PE -PP -PM $ip_range -oG host_discovery_results.txt
 cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip; do
   echo $ip >> targets.txt
 done
