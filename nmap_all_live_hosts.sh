@@ -30,7 +30,7 @@ nmap -iL targets.txt \
   --min-rtt-timeout 36ms \
   --initial-rtt-timeout 99ms \
   --max-rtt-timeout 300ms \
-  --max-retries 3 \
+  --max-retries 9 \
   --max-scan-delay 9ms \
   -n \
   -Pn \
@@ -50,7 +50,7 @@ nmap -iL targets.txt \
   --min-rtt-timeout 36ms \
   --initial-rtt-timeout 99ms \
   --max-rtt-timeout 300ms \
-  --max-retries 3 \
+  --max-retries 9 \
   --max-scan-delay 9ms \
   -n \
   -Pn \
