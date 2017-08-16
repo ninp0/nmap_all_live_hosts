@@ -27,7 +27,7 @@ echo "Initiating TCP Scans..."
 nmap -iL targets.txt \
   --min-hostgroup 3 \
   --max-hostgroup 9 \
-  --host-timeout 36m \
+  --host-timeout 999m \
   --min-parallelism 3 \
   --min-rtt-timeout 36ms \
   --initial-rtt-timeout 99ms \
@@ -48,7 +48,7 @@ echo "Initiating UDP Scans..."
 nmap -iL targets.txt \
   --min-hostgroup 3 \
   --max-hostgroup 9 \
-  --host-timeout 36m \
+  --host-timeout 999m \
   --min-parallelism 3 \
   --min-rtt-timeout 36ms \
   --initial-rtt-timeout 99ms \
