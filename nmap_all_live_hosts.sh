@@ -54,4 +54,4 @@ nmap -iL targets.txt \
   -sU \
   -A \
   -oA "latest_udp_results"
-cat "latest_udp_results.nmap" >> latest_udp_results.txt
+cat "latest_udp_results.nmap" > latest_udp_results.txt
