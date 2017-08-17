@@ -24,16 +24,27 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating TCP Scans..."
+#nmap -iL targets.txt \
+#  --min-hostgroup 3 \
+#  --max-hostgroup 9 \
+#  --host-timeout 999m \
+#  --min-parallelism 3 \
+#  --min-rtt-timeout 36ms \
+#  --initial-rtt-timeout 99ms \
+#  --max-rtt-timeout 300ms \
+#  --max-retries 9 \
+#  --max-scan-delay 9ms \
+#  -n \
+#  -Pn \
+#  -sS \
+#  -p 0-65535 \
+#  -A \
+#  -oA "latest_tcp_results"
 nmap -iL targets.txt \
   --min-hostgroup 3 \
   --max-hostgroup 9 \
   --host-timeout 999m \
-  --min-parallelism 3 \
-  --min-rtt-timeout 36ms \
-  --initial-rtt-timeout 99ms \
-  --max-rtt-timeout 300ms \
-  --max-retries 9 \
-  --max-scan-delay 9ms \
+  -T4 \
   -n \
   -Pn \
   -sS \
@@ -45,16 +56,26 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating UDP Scans..."
+#nmap -iL targets.txt \
+#  --min-hostgroup 3 \
+#  --max-hostgroup 9 \
+#  --host-timeout 999m \
+#  --min-parallelism 3 \
+#  --min-rtt-timeout 36ms \
+#  --initial-rtt-timeout 99ms \
+#  --max-rtt-timeout 300ms \
+#  --max-retries 9 \
+#  --max-scan-delay 9ms \
+#  -n \
+#  -Pn \
+#  -sU \
+#  -A \
+#  -oA "latest_udp_results"
 nmap -iL targets.txt \
   --min-hostgroup 3 \
   --max-hostgroup 9 \
   --host-timeout 999m \
-  --min-parallelism 3 \
-  --min-rtt-timeout 36ms \
-  --initial-rtt-timeout 99ms \
-  --max-rtt-timeout 300ms \
-  --max-retries 9 \
-  --max-scan-delay 9ms \
+  -T4 \
   -n \
   -Pn \
   -sU \
