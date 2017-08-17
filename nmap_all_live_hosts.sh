@@ -42,7 +42,6 @@ echo "Initiating TCP Scans..."
 #  -oA "latest_tcp_results"
 nmap -iL targets.txt \
   --min-hostgroup 3 \
-  --max-hostgroup 9 \
   --host-timeout 999m \
   -T4 \
   -n \
@@ -73,7 +72,6 @@ echo "Initiating UDP Scans..."
 #  -oA "latest_udp_results"
 nmap -iL targets.txt \
   --min-hostgroup 3 \
-  --max-hostgroup 9 \
   --host-timeout 999m \
   -T4 \
   -n \
