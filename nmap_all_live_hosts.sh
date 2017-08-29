@@ -18,8 +18,10 @@ fi
 
 nmap -sn -PR -PS -PA -PU -PY -PE -PP -PM $ip_range -oG host_discovery_results.txt
 cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip; do
-  echo $ip >> targets.txt
+  echo $ip >> targets.txt.UNSORTED
 done
+sort -V targets.txt.UNSORTED > targets.txt
+rm targets.txt.UNSORTED
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n"
 
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
