@@ -1,14 +1,15 @@
 #!/bin/bash
 usage() {
-  echo "USAGE: ${0} <nmap supported ip range e.g. 192.168.1.1-20, 192.168.1.0/24, etc>"
+  echo "USAGE: ${0} <nmap supported ip range e.g. 192.168.1.1-20, 192.168.1.0/24, etc> <use specified interface>"
   exit 1
 }
 
-if [[ $# < 1 ]]; then
+if [[ $# < 2 ]]; then
   usage
 fi
 
 ip_range=$1
+interface=$2
 
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Leveraging a Discovery Scan to Find IPs Prior to More Exhaustive Port Analysis..."
@@ -16,7 +17,7 @@ if [[ -e targets.txt ]]; then
   > targets.txt
 fi
 
-nmap -sn -PR -PS -PA -PU -PY -PE -PP -PM $ip_range -oG host_discovery_results.txt
+nmap -e $interface -sn -PR -PS -PA -PU -PY -PE -PP -PM $ip_range -oG host_discovery_results.txt
 cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip; do
   echo $ip >> targets.txt.UNSORTED
 done
@@ -43,6 +44,7 @@ echo "Initiating TCP Scans..."
 #  -A \
 #  -oA "latest_tcp_results"
 nmap -iL targets.txt \
+  -e $interface \
   --min-hostgroup 3 \
   --host-timeout 999m \
   -T4 \
@@ -73,6 +75,7 @@ echo "Initiating UDP Scans..."
 #  -A \
 #  -oA "latest_udp_results"
 nmap -iL targets.txt \
+  -e $interface \
   --min-hostgroup 3 \
   --host-timeout 999m \
   -T4 \
