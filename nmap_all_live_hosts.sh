@@ -37,7 +37,6 @@ echo "Initiating TCP Scans..."
 #  --max-rtt-timeout 300ms \
 #  --max-retries 9 \
 #  --max-scan-delay 9ms \
-#  -n \
 #  -Pn \
 #  -sS \
 #  -p 0-65535 \
@@ -48,7 +47,6 @@ nmap -iL targets.txt \
   --min-hostgroup 3 \
   --host-timeout 999m \
   -T4 \
-  -n \
   -Pn \
   -sS \
   -p 0-65535 \
@@ -69,7 +67,6 @@ echo "Initiating UDP Scans..."
 #  --max-rtt-timeout 300ms \
 #  --max-retries 9 \
 #  --max-scan-delay 9ms \
-#  -n \
 #  -Pn \
 #  -sU \
 #  -A \
@@ -79,7 +76,6 @@ nmap -iL targets.txt \
   --min-hostgroup 3 \
   --host-timeout 999m \
   -T4 \
-  -n \
   -Pn \
   -sU \
   -A \
