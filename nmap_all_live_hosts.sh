@@ -10,6 +10,7 @@ fi
 
 ip_range=$1
 interface=$2
+exclude_file=$3
 
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Leveraging a Discovery Scan to Find IPs Prior to More Exhaustive Port Analysis..."
@@ -17,7 +18,7 @@ if [[ -e targets.txt ]]; then
   > targets.txt
 fi
 
-nmap --excludefile exclude_targets.txt \
+nmap --excludefile $exclude_file \
   -e $interface \
   -sn \
   -PR \
@@ -28,8 +29,7 @@ nmap --excludefile exclude_targets.txt \
   -PE \
   -PP \
   -PM \
-  -oG host_discovery_results.txt
-  $ip_range
+  -oG host_discovery_results.txt $ip_range
 cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip; do
   echo $ip >> targets.txt.UNSORTED
 done
@@ -40,7 +40,7 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating TCP Scans..."
 nmap -iL targets.txt \
-  --excludefile exclude_targets.txt \
+  --excludefile $exclude_file \
   -e $interface \
   --min-hostgroup 3 \
   --host-timeout 999m \
@@ -57,7 +57,7 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating UDP Scans..."
 nmap -iL targets.txt \
-  --excludefile exclude_targets.txt \
+  --excludefile $exclude_file \
   -e $interface \
   --min-hostgroup 3 \
   --host-timeout 999m \
