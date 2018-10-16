@@ -17,7 +17,19 @@ if [[ -e targets.txt ]]; then
   > targets.txt
 fi
 
-nmap -e $interface -sn -PR -PS -PA -PU -PY -PE -PP -PM $ip_range -oG host_discovery_results.txt
+nmap --excludefile exclude_targets.txt \
+  -e $interface \
+  -sn \
+  -PR \
+  -PS \
+  -PA \
+  -PU \
+  -PY \
+  -PE \
+  -PP \
+  -PM \
+  -oG host_discovery_results.txt
+  $ip_range
 cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip; do
   echo $ip >> targets.txt.UNSORTED
 done
@@ -28,6 +40,7 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating TCP Scans..."
 nmap -iL targets.txt \
+  --excludefile exclude_targets.txt \
   -e $interface \
   --min-hostgroup 3 \
   --host-timeout 999m \
@@ -44,6 +57,7 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating UDP Scans..."
 nmap -iL targets.txt \
+  --excludefile exclude_targets.txt \
   -e $interface \
   --min-hostgroup 3 \
   --host-timeout 999m \
