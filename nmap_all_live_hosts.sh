@@ -1,6 +1,6 @@
 #!/bin/bash
 usage() {
-  echo "USAGE: ${0} <nmap supported ip range e.g. 192.168.1.1-20, 192.168.1.0/24, etc> <use specified interface>"
+  echo "USAGE: ${0} <nmap supported ip range e.g. 192.168.1.1-20, 192.168.1.0/24, etc> <target_exclude_file> <use specified interface>"
   exit 1
 }
 
@@ -9,8 +9,8 @@ if [[ $# < 2 ]]; then
 fi
 
 ip_range=$1
-interface=$2
-exclude_file=$3
+exclude_file=$2
+interface=$3
 
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Leveraging a Discovery Scan to Find IPs Prior to More Exhaustive Port Analysis..."
