@@ -11,6 +11,7 @@ fi
 ip_range=$1
 exclude_file=$2
 interface=$3
+discovery_ports="21,22,23,25,53,80,137,139,143,389,443,445,636,1433,3389,5432,5900,8080,8443,8888,9090,9999"
 
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Leveraging a Discovery Scan to Find IPs Prior to More Exhaustive Port Analysis..."
@@ -22,13 +23,13 @@ nmap --excludefile $exclude_file \
   -e $interface \
   -sn \
   -PR \
-  -PS \
-  -PA \
-  -PU \
-  -PY \
   -PE \
   -PP \
   -PM \
+  -PS"${discovery_ports}" \
+  -PA"${discovery_ports}" \
+  -PU"${discovery_ports}" \
+  -PY"${discovery_ports}" \
   -oG host_discovery_results.txt $ip_range
 cat host_discovery_results.txt | awk '{print $2}' | grep -v Nmap | while read ip; do
   echo $ip >> targets.txt.UNSORTED
