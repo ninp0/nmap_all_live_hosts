@@ -41,6 +41,7 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating TCP Scans..."
 nmap -iL targets.txt \
+  --reason \
   --excludefile $exclude_file \
   -e $interface \
   --min-hostgroup 3 \
@@ -58,6 +59,7 @@ echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Initiating UDP Scans..."
 nmap -iL targets.txt \
+  --reason \
   --excludefile $exclude_file \
   -e $interface \
   --min-hostgroup 3 \
